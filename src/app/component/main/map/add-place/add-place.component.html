@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Do you want to add new place?</h1>
+<form [formGroup]="newPlaceForm">
+
+
+  <mat-form-field class="full-width">
+    <input [maxlength]="40" matInput
+           placeholder="Place name"
+           formControlName="name">
+    <mat-error *ngIf="!newPlaceForm.valid">
+      Place name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <p></p>
+  <mat-form-field class="full-width">
+    <textarea [maxlength]="40" matInput
+           placeholder="Place description"
+           formControlName="description"></textarea>
+  </mat-form-field>
+
+  <p></p>
+
+  <mat-form-field class="full-width">
+    <input [maxlength]="40" matInput
+           placeholder="Place phone number"
+           formControlName="phone">
+  </mat-form-field>
+
+  <p></p>
+
+  <mat-form-field class="full-width">
+    <input [maxlength]="40" matInput
+           placeholder="Category"
+           formControlName="category">
+  </mat-form-field>
+
+  <div class="full-width buttons-section">
+    <button class="button"
+            [disabled]="!newPlaceForm.valid"
+            mat-raised-button color="primary"
+            [mat-dialog-close]="newPlaceForm.getRawValue()"
+    >Yes
+    </button>
+
+    <button class="button" mat-raised-button (click)="onNoClick()">No</button>
+  </div>
+</form>

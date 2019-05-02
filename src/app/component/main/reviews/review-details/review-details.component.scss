@@ -1,0 +1,15 @@
+@import "../../../../../theme";
+
+.container{
+  display: flex;
+
+  min-height: 300px;
+  .column {
+    width: 33%;
+  }
+
+  .background {
+    background-color: map_get($mat-grey, 100);
+  }
+}
+

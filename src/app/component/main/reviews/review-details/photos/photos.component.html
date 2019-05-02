@@ -1,0 +1,13 @@
+<ng-container *ngIf="photos.length > 0; else noPhoto">
+  <p *ngFor="let photo of photos">
+
+    <img class="image" [src]="photo.url">
+  </p>
+</ng-container>
+
+<div class="image" #noPhoto>
+  <!--<mat-icon class="center">photo_camera</mat-icon>-->
+  <p>
+    No Photos, sorry :(
+  </p>
+</div>

@@ -1,0 +1,23 @@
+<div class="search-top-bar">
+  <div class="search">
+    <form (submit)="search()">
+      <mat-form-field class="example-full-width">
+        <input type="text" id="search" [(ngModel)]="searchPhase" name="search" matInput maxlength="256">
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="warn">Search</button>
+    </form>
+  </div>
+</div>
+<ng-container *ngIf="places; else spinner">
+  <app-map [places]="places"></app-map>
+  <app-reviews [places]="places"></app-reviews>
+</ng-container>
+<ng-template #spinner>
+  <mat-progress-spinner
+    class="main-spinner"
+    mode="indeterminate"
+    diameter=300
+  ></mat-progress-spinner>
+</ng-template>
+
