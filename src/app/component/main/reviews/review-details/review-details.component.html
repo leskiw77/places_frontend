@@ -3,7 +3,18 @@
     <app-photos [photos]="place.photos"></app-photos>
   </div>
   <div class="column">
-    dupa
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{place.name | uppercase}}</mat-card-title>
+        <mat-card-subtitle>{{place.category | lowercase}}</mat-card-subtitle>
+        <mat-card-subtitle>{{ place.phone}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{place.description}}
+        </p>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="column background">
     column two

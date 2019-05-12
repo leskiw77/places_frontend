@@ -30,6 +30,7 @@ import {PlacesProviderService} from './service/places-provider.service';
 import { ReviewDetailsComponent } from './component/main/reviews/review-details/review-details.component';
 import { PhotosComponent } from './component/main/reviews/review-details/photos/photos.component';
 import { AddPlaceComponent } from './component/main/map/add-place/add-place.component';
+import { RatingsComponent } from './component/main/reviews/review-details/ratings/ratings.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddPlaceComponent } from './component/main/map/add-place/add-place.comp
     ReviewDetailsComponent,
     PhotosComponent,
     AddPlaceComponent,
+    RatingsComponent,
   ],
   imports: [
     BrowserModule,
