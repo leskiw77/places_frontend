@@ -26,23 +26,20 @@ export class MapComponent implements OnInit {
 
   zoom = 14;
 
-  // initial center position for the map
-  lat = 50.057;
-  lng = 19.9278;
-
   constructor(private locationService: LocationService,
               private placesProviderService: PlacesProviderService,
               private dialog: MatDialog) {
   }
 
-  ngOnInit() {
-    if (navigator) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        this.lng = +pos.coords.longitude;
-        this.lat = +pos.coords.latitude;
-      });
-    }
+  getLatitude() {
+    return this.selectedPlace ? this.selectedPlace.geo.lat : this.locationService.getLatitude();
+  }
 
+  getLongitude() {
+    return this.selectedPlace ? this.selectedPlace.geo.lng : this.locationService.getLongitude();
+  }
+
+  ngOnInit() {
     this.placesProviderService.getChosenPlaceObservable().subscribe(place => this.selectedPlace = place);
   }
 
@@ -53,7 +50,6 @@ export class MapComponent implements OnInit {
 
   addPlace($event) {
     const geo = $event.coords as Geo;
-
     const dialogRef = this.dialog.open(AddPlaceComponent, {width: '400px'});
 
     dialogRef.afterClosed().subscribe((result: DialogOutput) => {
@@ -63,4 +59,7 @@ export class MapComponent implements OnInit {
     });
   }
 
+  centerChange($event: Geo) {
+    this.locationService.setMapCenter($event);
+  }
 }

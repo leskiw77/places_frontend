@@ -30,3 +30,10 @@ export interface Review {
 export interface Photo {
   url: string;
 }
+
+export interface ReviewToAdd {
+  date: string;
+  author: string;
+  rating: number;
+  text: string;
+}

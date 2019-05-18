@@ -1,10 +1,12 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapRightClick)=addPlace($event)>
+<agm-map [latitude]="getLatitude()"
+         [longitude]="getLongitude()"
+         [zoom]="zoom"
+         (mapRightClick)=addPlace($event)
+         (centerChange)=centerChange($event)>
+
   <agm-marker *ngFor="let place of places.places"
               [latitude]="place.geo.lat"
               [longitude]="place.geo.lng"
-              (markerClick)=markerClicked(place)
-  >
-
+              (markerClick)=markerClicked(place)>
   </agm-marker>
 </agm-map>
-

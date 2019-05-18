@@ -14,9 +14,9 @@ import {
   MatCardModule,
   MatInputModule,
   MatDialogModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSliderModule
 } from '@angular/material';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapComponent } from './component/main/map/map.component';
 import { AgmCoreModule } from '@agm/core';
@@ -31,6 +31,8 @@ import { ReviewDetailsComponent } from './component/main/reviews/review-details/
 import { PhotosComponent } from './component/main/reviews/review-details/photos/photos.component';
 import { AddPlaceComponent } from './component/main/map/add-place/add-place.component';
 import { RatingsComponent } from './component/main/reviews/review-details/ratings/ratings.component';
+import {AddReviewComponent} from './component/main/reviews/review-details/ratings/add-review/add-review.component';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { RatingsComponent } from './component/main/reviews/review-details/rating
     PhotosComponent,
     AddPlaceComponent,
     RatingsComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -62,11 +65,12 @@ import { RatingsComponent } from './component/main/reviews/review-details/rating
     MatIconModule,
     MatListModule,
     MatDialogModule,
+    MatSliderModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule
   ],
-  providers: [LocationService, PlacesProviderService],
+  providers: [LocationService, PlacesProviderService, DatePipe],
   bootstrap: [AppComponent],
-  entryComponents: [AddPlaceComponent]
+  entryComponents: [AddPlaceComponent, AddReviewComponent]
 })
 export class AppModule { }

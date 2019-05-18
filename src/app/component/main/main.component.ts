@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlacesProviderService} from '../../service/places-provider.service';
 import {Places} from '../../model/places';
+import {LocationService} from '../../service/location.service';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,7 @@ import {Places} from '../../model/places';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private placesProviderService: PlacesProviderService) { }
+  constructor(private placesProviderService: PlacesProviderService, private locationService: LocationService) { }
 
   places: Places = null;
 
@@ -20,6 +21,7 @@ export class MainComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchPhase);
+    this.placesProviderService.getAllPlaces(this.searchPhase, this.locationService.getMapCenter());
+    console.log();
   }
 }

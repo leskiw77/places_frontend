@@ -10,3 +10,17 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 .places-customization .mat-tab-label {
   height: 200px;
 }
+
+.rating-slider {
+  .mat-slider-horizontal {
+    width: 100%;
+  }
+
+  p {
+    color: #607d8b;;
+  }
+
+  .mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label {
+    background-color: #607d8b;
+  }
+}

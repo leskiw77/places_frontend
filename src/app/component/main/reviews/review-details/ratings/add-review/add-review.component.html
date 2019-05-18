@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Do you want to add new review?</h1>
+<form [formGroup]="newReviewForm">
+
+
+  <mat-form-field class="full-width">
+    <input [maxlength]="40" matInput
+           placeholder="Author"
+           formControlName="author">
+    <mat-error *ngIf="!newReviewForm.valid">
+      Place name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <p></p>
+  <mat-form-field class="full-width">
+    <textarea [maxlength]="40" matInput
+              placeholder="Review"
+              formControlName="text"></textarea>
+  </mat-form-field>
+
+  <div class="rating-slider">
+    <p>Rating [1-5]</p>
+
+    <mat-slider
+      class="example-margin" formControlName="rating" max=5 min=1 step=1 [thumbLabel]="true"
+      tickInterval="1"
+    >
+    </mat-slider>
+  </div>
+
+  <p></p>
+
+  <div class="full-width buttons-section">
+    <button class="button"
+            [disabled]="!newReviewForm.valid"
+            mat-raised-button color="primary"
+            [mat-dialog-close]="generateResult()"
+    >Yes
+    </button>
+
+    <button class="button" mat-raised-button (click)="onNoClick()">No</button>
+  </div>
+</form>

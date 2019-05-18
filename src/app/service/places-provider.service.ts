@@ -1,19 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
-import {Location} from './location.service';
-import {Geo, Place, Places} from '../model/places';
-import {first, map} from 'rxjs/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {Geo, Place, Places, ReviewToAdd} from '../model/places';
+import {LocationService} from './location.service';
 
 @Injectable()
 export class PlacesProviderService {
   url = 'https://2fb554c4-5564-4f45-8b42-7024f7ee9132.mock.pstmn.io/';
-  // url = 'http://localhost:8080/';
 
-  private chosenPlace: Subject<Place> = new Subject<Place>();
+  private chosenPlace: BehaviorSubject<Place> = new BehaviorSubject<Place>(null);
   private allPlaces: Subject<Places> = new Subject<Places>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private locationService: LocationService) {
   }
 
   get(makeRequest = true): Observable<Places> {
@@ -23,8 +21,18 @@ export class PlacesProviderService {
     return this.allPlaces.asObservable();
   }
 
-  private getAllPlaces() {
-    return this.http.get<Places>(this.url + 'places')
+  getAllPlaces(name: string = null, geo: Geo = null) {
+    let params = new HttpParams();
+
+    if (name) {
+      params = params.set('name', name);
+    }
+
+    const g = geo ? geo : this.extractGeo();
+    params = params.set('lat', g.lat.toString());
+    params = params.set('lng', g.lng.toString());
+
+    return this.http.get<Places>(this.url + 'places', {params})
       .subscribe(e => this.allPlaces.next(e));
   }
 
@@ -38,7 +46,20 @@ export class PlacesProviderService {
 
   addPlace(body: {name: string, category: string, geo: Geo, phone: string, description: string}) {
     console.log(body);
-    this.http.post(this.url + 'places', body).subscribe(_ => this.getAllPlaces());
+    this.http.post(this.url + 'places', body)
+      .subscribe(_ => this.getAllPlaces(), err => console.warn(err));
   }
 
+  addReview(id: string, body: ReviewToAdd, makeRequest = true) {
+    this.http.post(this.url + 'places/' + id + '/review', body)
+      .subscribe(_ => {
+        if (makeRequest) { this.getAllPlaces(); }
+      },
+        err => console.warn(err));
+  }
+
+  private extractGeo(): Geo {
+    const place = this.chosenPlace.getValue();
+    return place ? place.geo : this.locationService.getGeo();
+  }
 }

@@ -1,13 +1,32 @@
-<mat-card class="example-card">
+<button mat-button class="review_element" (click)="addReview()">
+  <mat-icon class="center">library_add</mat-icon>
+  <p>Add review</p>
+</button>
+
+<div class="review_element" *ngFor="let review of place.reviews">
   <mat-card-header>
-    <mat-card-title>{{ place.name | uppercase }}</mat-card-title>
-    <mat-card-subtitle>{{ place.phone}}</mat-card-subtitle>
-    <mat-card-subtitle>{{ place.category}}</mat-card-subtitle>
+    <mat-card-title>
+      <mat-icon [style.color]="getColor(review, 1)" class="center">star_rate</mat-icon>
+      <mat-icon [style.color]="getColor(review, 2)" class="center">star_rate</mat-icon>
+      <mat-icon [style.color]="getColor(review, 3)" class="center">star_rate</mat-icon>
+      <mat-icon [style.color]="getColor(review, 4)" class="center">star_rate</mat-icon>
+      <mat-icon [style.color]="getColor(review, 5)" class="center">star_rate</mat-icon>
+
+
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="review.author">author: {{review.author}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="review.provider">provider: {{ review.provider}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="review.date">date: {{ review.date}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="review.url">url: {{ review.url}}</mat-card-subtitle>
+
+
+
+
   </mat-card-header>
+
   <mat-card-content>
     <p>
-      {{ place.description}}
+      {{review.text}}
     </p>
   </mat-card-content>
-</mat-card>
-
+</div>

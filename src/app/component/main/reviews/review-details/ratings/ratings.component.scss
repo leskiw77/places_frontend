@@ -1,0 +1,12 @@
+@import "../../../../../../theme";
+
+
+.review_element{
+  padding: 10px;
+  margin: 10px;
+  background: white;
+  border: 2px solid map_get($mat-deep-orange, 600);
+  border-radius: 25px;
+
+
+}
