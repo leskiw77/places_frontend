@@ -23,7 +23,7 @@ export class RatingsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: ReviewToAdd) => {
       if (result) {
-        this.placesProviderService.addReview(this.place.id, result);
+        this.placesProviderService.addReview(this.place, result);
       }
     });
   }

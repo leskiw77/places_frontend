@@ -1,4 +1,4 @@
-<ng-container *ngIf="photos.length > 0; else noPhoto">
+<ng-container *ngIf="photos && photos.length > 0; else noPhoto">
   <p *ngFor="let photo of photos">
     <img class="image" [src]="photo.url">
   </p>

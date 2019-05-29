@@ -11,7 +11,8 @@ export class PlacesProviderService {
   private chosenPlace: BehaviorSubject<Place> = new BehaviorSubject<Place>(null);
   private allPlaces: Subject<Places> = new Subject<Places>();
 
-  constructor(private http: HttpClient, private locationService: LocationService) {}
+  constructor(private http: HttpClient, private locationService: LocationService) {
+  }
 
   get(makeRequest = true): Observable<Places> {
     if (makeRequest) {
@@ -49,14 +50,14 @@ export class PlacesProviderService {
       .subscribe(_ => this.getAllPlaces(), err => console.warn(err));
   }
 
-  addReview(id: string, body: ReviewToAdd, makeRequest = true) {
+  addReview(place: Place, body: ReviewToAdd, makeRequest = true) {
     console.log('add review');
     console.log(body);
 
-    this.http.post(this.url + 'places/' + id + '/review', body)
+    this.http.post(this.url + 'places/' + place.id + '/reviews', body)
       .subscribe(_ => {
           if (makeRequest) {
-            this.getAllPlaces();
+            this.getAllPlaces(place.name, place.geo);
           }
         },
         err => console.warn(err));
