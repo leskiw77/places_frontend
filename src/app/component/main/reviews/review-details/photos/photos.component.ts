@@ -7,11 +7,9 @@ import {Photo} from '../../../../../model/places';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent {
-
   @Input() photos: Photo[];
 
   constructor() {
   }
-
 
 }

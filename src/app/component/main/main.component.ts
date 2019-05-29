@@ -22,6 +22,5 @@ export class MainComponent implements OnInit {
 
   search() {
     this.placesProviderService.getAllPlaces(this.searchPhase, this.locationService.getMapCenter());
-    console.log();
   }
 }

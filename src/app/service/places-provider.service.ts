@@ -6,13 +6,12 @@ import {LocationService} from './location.service';
 
 @Injectable()
 export class PlacesProviderService {
-  url = 'https://2fb554c4-5564-4f45-8b42-7024f7ee9132.mock.pstmn.io/';
+  url = 'https://places-core.herokuapp.com/api/v1/';
 
   private chosenPlace: BehaviorSubject<Place> = new BehaviorSubject<Place>(null);
   private allPlaces: Subject<Places> = new Subject<Places>();
 
-  constructor(private http: HttpClient, private locationService: LocationService) {
-  }
+  constructor(private http: HttpClient, private locationService: LocationService) {}
 
   get(makeRequest = true): Observable<Places> {
     if (makeRequest) {
@@ -33,7 +32,7 @@ export class PlacesProviderService {
     params = params.set('lng', g.lng.toString());
 
     return this.http.get<Places>(this.url + 'places', {params})
-      .subscribe(e => this.allPlaces.next(e));
+      .subscribe(e => this.allPlaces.next(e), e => console.error(e));
   }
 
   getChosenPlaceObservable(): Observable<Place> {
@@ -44,17 +43,22 @@ export class PlacesProviderService {
     this.chosenPlace.next(place);
   }
 
-  addPlace(body: {name: string, category: string, geo: Geo, phone: string, description: string}) {
+  addPlace(body: { name: string, category: string, geo: Geo, phone: string, description: string }) {
     console.log(body);
     this.http.post(this.url + 'places', body)
       .subscribe(_ => this.getAllPlaces(), err => console.warn(err));
   }
 
   addReview(id: string, body: ReviewToAdd, makeRequest = true) {
+    console.log('add review');
+    console.log(body);
+
     this.http.post(this.url + 'places/' + id + '/review', body)
       .subscribe(_ => {
-        if (makeRequest) { this.getAllPlaces(); }
-      },
+          if (makeRequest) {
+            this.getAllPlaces();
+          }
+        },
         err => console.warn(err));
   }
 
