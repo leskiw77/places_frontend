@@ -47,7 +47,7 @@ export class PlacesProviderService {
   addPlace(body: { name: string, category: string, geo: Geo, phone: string, description: string }) {
     console.log(body);
     this.http.post(this.url + 'places', body)
-      .subscribe(_ => this.getAllPlaces(), err => console.warn(err));
+      .subscribe(_ => this.getAllPlaces(body.name, body.geo), err => console.warn(err));
   }
 
   addReview(place: Place, body: ReviewToAdd, makeRequest = true) {
